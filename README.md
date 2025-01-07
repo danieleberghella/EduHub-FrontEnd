@@ -42,6 +42,18 @@ EduHub is a web platform designed for a private school offering professional cou
 ## Environmental Variables
 Rename the .env.dev file to .env to use the enviromental variables.
 
+### Testing
+You can log in using the default admin credentials:
+- **Email**: `admin@example.com`
+- **Password**: `123123123`
+
+With Student Credentials:
+- **Email**: `brody.fox@example.com`
+- **Password**: `123123123`
+
+With Teacher Credentials:
+- **Email**: `jane.smith@example.com`
+- **Password**: `123123123`
 
 ## Conclusion
 
