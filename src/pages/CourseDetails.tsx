@@ -13,6 +13,17 @@ import { useAuth } from '@/contexts/AuthContext';
 import { ITest } from '@/interfaces/Test';
 import { ITestResults } from '@/interfaces/TestResults';
 import StudentStatistics from '@/components/StudentStatistics';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export const CourseDetails = () => {
     const { tests, handleDeleteTest, fetchTestsByCourseId, setTestState, fetchTestsCompletedByUserIdByCourseId, testResultsByUserIdByCourseId, setTestResults } = useTest();
@@ -51,6 +62,11 @@ export const CourseDetails = () => {
         }
     }
 
+    const handleDeteteSubjecyUser = (id: string | undefined, type: string) => {
+        handleDeleteEnrollmentOrSubject(id, type)
+
+    }
+
     return (
         <div className="flex flex-col w-full">
             <div className='flex flex-col lg:flex-row w-full m-auto'>
@@ -82,7 +98,22 @@ export const CourseDetails = () => {
                                         <Dot />
                                         {subject.name}
                                         {subjectsEdit ?
-                                            <Trash2 onClick={() => handleDeleteEnrollmentOrSubject(subject.id, "SUBJECT")} className='size-4 cursor-pointer text-red-500' />
+                                            <AlertDialog>
+                                                <AlertDialogTrigger><Trash2 className='size-4 cursor-pointer text-red-500' /></AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                        <AlertDialogDescription>
+                                                        This action cannot be undone. This will permanently delete the element
+                                                        and remove the data from you server.
+                                                        </AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleDeteteSubjecyUser(subject.id, "SUBJECT")}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
                                             :
                                             ""}
                                     </div>
@@ -115,7 +146,22 @@ export const CourseDetails = () => {
                                         <Dot />
                                         <p>{user.lastName} {user.firstName} ({user.role})</p>
                                         {usersEdit ?
-                                            <Trash2 onClick={() => handleDeleteEnrollmentOrSubject(user.id, "USER")} className='size-4 cursor-pointer text-red-500' />
+                                            <AlertDialog>
+                                                <AlertDialogTrigger><Trash2 className='size-4 cursor-pointer text-red-500' /></AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                        <AlertDialogDescription>
+                                                        This action cannot be undone. This will permanently delete the element
+                                                        and remove the data from you server.
+                                                        </AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleDeteteSubjecyUser(user.id, "USER")}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
                                             :
                                             ""}
                                     </div>
@@ -146,7 +192,22 @@ export const CourseDetails = () => {
                                             <Dot />
                                             {file.fileName} {file.teacherLastName} ({file.uploadDate})
                                             {filesEdit ?
-                                                <Trash2 onClick={() => handleDeleteFile(file.id)} className='size-4 cursor-pointer text-red-500' />
+                                                <AlertDialog>
+                                                <AlertDialogTrigger><Trash2 className='size-4 cursor-pointer text-red-500' /></AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                        <AlertDialogDescription>
+                                                            This action cannot be undone. This will permanently delete the element
+                                                            and remove the data from you server.
+                                                        </AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleDeleteFile(file.id)}>Continue</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
                                                 :
                                                 <FileDown onClick={() => handleDownloadFile(file.id, file.fileName)} className='cursor-pointer text-blue-600' />}
                                         </div>
@@ -174,7 +235,22 @@ export const CourseDetails = () => {
                                         <Dot />
                                         {test.title} ({subjectsInCourse?.find(subject => subject.id === test.subjectId)?.name || "Subject name not found"}, {test.availableMinutes} min)
                                         {testsEdit ?
-                                            <Trash2 onClick={() => handleDeleteTest(test.id, course?.id)} className='size-4 cursor-pointer text-red-500' />
+                                            <AlertDialog>
+                                            <AlertDialogTrigger><Trash2 className='size-4 cursor-pointer text-red-500' /></AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                    <AlertDialogDescription>
+                                                        This action cannot be undone. This will permanently delete the element
+                                                        and remove the data from you server.
+                                                    </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction onClick={() => handleDeleteTest(test.id, course?.id)}>Continue</AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
                                             :
                                             <Link to={`/${userPath}/${test.title}`} onClick={() => handleSetTest(test)}><ClipboardPen className='cursor-pointer text-blue-600' /></Link>}
                                     </div>

@@ -77,7 +77,7 @@ const SignUp = () => {
     const [error, setError] = useState(false);
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center p-4">
+        <div className="min-h-screen w-full flex items-center justify-center p-4 bg-homepage-background bg-repeat bg-center">
             <div className="w-full max-w-md bg-[#2a3c61] backdrop-blur-xl rounded-3xl border border-white/10 shadow-xl relative">
                 <header className="p-6 text-center text-white space-y-2">
                     <h1 className="text-4xl font-bold tracking-wide">Join Us on EduHub</h1>
